@@ -97,20 +97,20 @@ ggplot(data = sampled, aes(x=vegCoverType, y=extracted.num, fill=vegCoverType))+
   theme(axis.text.x = element_text(angle = 90))
 
 # Compute summary statistics
-# stats <- ddply(.data = final,
-#                .variables = c("mgmtType", "vegCoverType"),
-#                summarize,
-#                M = mean(extracted.num, na.rm=T), SD = sd(extracted.num, na.rm=T), SEM = SD/(sqrt(length(extracted.num))))
-# 
-# stats$normAnomaly <- (stats$M-globalM)/stats$SD #compute normalized anomaly 
+#stats <- ddply(.data = final,
+               .variables = c("mgmtType", "vegCoverType"),
+               summarize,
+               M = mean(extracted.num, na.rm=T), SD = sd(extracted.num, na.rm=T), SEM = SD/(sqrt(length(extracted.num))))
+ 
+#stats$normAnomaly <- (stats$M-globalM)/stats$SD #compute normalized anomaly 
 
 # Plot VI change by management & vegetation type
-# ggplot(data=stats, aes(x=vegCoverType, y=normAnomaly, fill=mgmtType))+
-#   geom_bar(stat="identity", position=position_dodge())+
-#   #geom_errorbar(aes(ymin=norm-SEM, ymax=norm+SEM), width=0.2, position = position_dodge(0.9))+
-#   ylab("Normalised mean 1984-2018\nVI change slope anomaly")+
-#   xlab("Vegetation cover type")+
-#   scale_fill_manual(values=c("#009E73", "#e79f00", "#CC79A7", "#0072B2"), name="managemet\ntype") #colour blind-friendly palette
+ggplot(data=stats, aes(x=vegCoverType, y=normAnomaly, fill=mgmtType))+
+  geom_bar(stat="identity", position=position_dodge())+
+  #geom_errorbar(aes(ymin=norm-SEM, ymax=norm+SEM), width=0.2, position = position_dodge(0.9))+
+  ylab("Normalised mean 1984-2018\nVI change slope anomaly")+
+  xlab("Vegetation cover type")+
+  scale_fill_manual(values=c("#009E73", "#e79f00", "#CC79A7", "#0072B2"), name="managemet\ntype") #colour blind-friendly palette
 
 # Test for statistical differences between vegCover-mgmt combinations
 aov.fit <- aov(extracted.num~mgmtType*vegCoverType, data = sampled) #'final'/'sampled' log-transform y?
@@ -121,8 +121,8 @@ plot(aov.fit)
 hist(resid(aov.fit))
 
 # Export plot
-# png("plot1.png")
-# plot1 <- ggplot(data = final, aes(x=vegCoverType, y=extracted, fill=mgmtType))+
-#   geom_boxplot()
-# print(plot1)
-# dev.off()
+#png("plot1.png")
+#plot1 <- ggplot(data = final, aes(x=vegCoverType, y=extracted, fill=mgmtType))+
+#geom_boxplot()
+#print(plot1)
+#dev.off()
